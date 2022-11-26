@@ -1,7 +1,7 @@
 #include "Walnut/Application.h"
 #include "Walnut/EntryPoint.h"
 
-#include "Walnut/Image.h"
+//#include "Walnut/Image.h"
 
 class ExampleLayer : public Walnut::Layer
 {
@@ -18,12 +18,11 @@ public:
 
 Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 {
-	Walnut::ApplicationSpecification spec;
-	spec.Name = "Walnut Example";
+	const std::string Name = "Walnut Example";
 
-	Walnut::Application* app = new Walnut::Application(spec);
-	app->PushLayer<ExampleLayer>();
-	app->SetMenubarCallback([app]()
+	Walnut::Application* app = new Walnut::Application(Name, 720, 1080);
+	//app->PushLayer<ExampleLayer>();
+	/*app->SetMenubarCallback([app]()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
@@ -33,6 +32,6 @@ Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 			}
 			ImGui::EndMenu();
 		}
-	});
+	});*/
 	return app;
 }

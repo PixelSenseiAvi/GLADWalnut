@@ -1,16 +1,17 @@
 #pragma once
 
 #include "Layer.h"
-
+#include "Window.h"
 #include "imgui.h"
 
-#include "GLFW/glfw3.h"
+//#include "GLFW/glfw3.h"
 
 namespace Walnut {
+
 	class ImGuiLayer : public Layer
 	{
 	public:
-		ImGuiLayer();
+		ImGuiLayer(Window* window);
 		~ImGuiLayer() = default;
 
 		virtual void OnAttach() override;
@@ -20,15 +21,17 @@ namespace Walnut {
 		void Begin();
 		void End();
 
-		void Init();
+		//void Init();
 		void Run();
-		void Terminate();
+		//void Terminate();
 
 		void BlockEvents(bool block) { m_BlockEvents = block; }
 
 		void SetDarkThemeColors();
 	private:
 		bool m_BlockEvents = true;
-		ImGuiIO& io;
+
+		GLFWwindow* m_window;
+		uint32_t m_width = 0, m_height = 0;
 	};
 }

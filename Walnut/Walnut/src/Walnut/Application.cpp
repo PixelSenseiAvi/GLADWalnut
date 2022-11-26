@@ -1,7 +1,5 @@
 #include "Application.h"
 
-#include <GLFW/glfw3.h>
-
 #include <iostream> //TODO: Replace cout with spdlog
 
 namespace Walnut {
@@ -15,13 +13,11 @@ namespace Walnut {
 		s_Instance = this;
 
 		int initRes = Init();
-		if (!initRes)
+		if (initRes)
 			std::cout << "Initiliased successfully" << std::endl;
 		else
-			std::cout << "Initilion Failed" << std::endl;
+			std::cout << "Initialization Failed" << std::endl;
 
-		//Initialize IMGUI Layer
-		m_imguiLayer = new ImGuiLayer();
 	}
 
 	Application::~Application()
@@ -29,10 +25,13 @@ namespace Walnut {
 		Terminate();
 	}
 
+	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+	void processInput(GLFWwindow* window);
+
 	int Application::Init()
 	{
 		// glfw: initialize and configure
-		glfwInit();
+		if (!glfwInit()) { std::cout << ("GLFW Init Failed"); return -1; }
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -53,8 +52,16 @@ namespace Walnut {
 			return -1;
 		}
 
+		//Initialize IMGUI Layer
+		Window win;
+		win.window = m_window;
+		win.width = m_width;
+		win.height = m_height;
+		m_imguiLayer = new ImGuiLayer(&win);
 		//TODO: init Imgui
 		m_imguiLayer->OnAttach();
+		
+		return 1;
 	}
 
 	void Application::Run()

@@ -13,6 +13,7 @@ project "Walnut"
       "../vendor/glfw/include",
       "../vendor/stb_image",
       "../vendor/Glad/include",
+	"../vendor/spdlog",
 
    --   "%{IncludeDir.VulkanSDK}",
       "%{IncludeDir.glm}",

@@ -11,7 +11,7 @@
 
 #define GLFW_INCLUDE_NONE
 #include "glad/glad.h"
-#include "GLFW/glfw3.h"
+#include "Window.h"
 
 namespace Walnut {
 
@@ -36,7 +36,7 @@ namespace Walnut {
 
 		static Application* s_Instance;
 
-		ImGuiLayer* m_imguiLayer;
+		ImGuiLayer* m_imguiLayer = nullptr;
 
 		int Init();
 		void Terminate();

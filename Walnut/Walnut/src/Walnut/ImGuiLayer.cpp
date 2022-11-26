@@ -3,7 +3,10 @@
 #include "ImGui/Roboto-Regular.embed"
 #include "ImGuiUtils.h"
 
-#include "Application.h"
+Walnut::ImGuiLayer::ImGuiLayer(Window* window)
+	:m_window (window->window), m_width (window->width), m_height( window->height)
+{	
+}
 
 void Walnut::ImGuiLayer::OnAttach()
 {
@@ -12,7 +15,8 @@ void Walnut::ImGuiLayer::OnAttach()
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	io = ImGui::GetIO(); (void)io;
+	ImGuiIO& io = ImGui::GetIO();
+	(void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
@@ -38,11 +42,11 @@ void Walnut::ImGuiLayer::OnAttach()
 	ImFont* robotoFont = io.Fonts->AddFontFromMemoryTTF((void*)g_RobotoRegular, sizeof(g_RobotoRegular), 20.0f, &fontConfig);
 	io.FontDefault = robotoFont;
 
-	Application& app = Application::Get();
-	GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow());
+	/*Application& app = Application::Get();
+	GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow());*/
 
 	// Setup ImGui binding
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplGlfw_InitForOpenGL(m_window, true);
 	ImGui_ImplOpenGL3_Init("#version 410");
 }
 
@@ -107,9 +111,8 @@ void Walnut::ImGuiLayer::Run() //TODO: Check OnUIRender
 void Walnut::ImGuiLayer::End()
 {
 	ImGuiIO& io = ImGui::GetIO();
-	Application& app = Application::Get();
-	io.DisplaySize = ImVec2((float)app.GetWidth(),
-		(float)app.GetHeight());
+	//Application& app = Application::Get();
+	io.DisplaySize = ImVec2((float)m_width, (float)m_height);	//ImVec2((float)app.GetWidth(), (float)app.GetHeight());
 
 
 	// Rendering
@@ -134,4 +137,8 @@ void Walnut::ImGuiLayer::OnDetach()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+}
+
+void Walnut::ImGuiLayer::OnUIRender()
+{
 }

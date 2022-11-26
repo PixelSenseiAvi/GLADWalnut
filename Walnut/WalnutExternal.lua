@@ -5,6 +5,7 @@
 IncludeDir = {}
 --IncludeDir["VulkanSDK"] = "%{VULKAN_SDK}/Include"
 IncludeDir["glm"] = "../vendor/glm"
+IncludeDir["spdlog"] = "../vendor/spdlog"
 
 LibraryDir = {}
 --LibraryDir["VulkanSDK"] = "%{VULKAN_SDK}/Lib"
@@ -16,6 +17,7 @@ group "Dependencies"
    include "vendor/imgui"
    include "vendor/glfw"
    include "vendor/Glad"
+   
 group ""
 
 group "Core"
