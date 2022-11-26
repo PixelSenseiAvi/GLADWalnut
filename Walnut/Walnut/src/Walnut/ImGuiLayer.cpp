@@ -5,7 +5,7 @@
 
 #include "Application.h"
 
-void Walnut::ImGuiLayer::Init()
+void Walnut::ImGuiLayer::OnAttach()
 {
 	//!!Imgui stuff is experimental
 
@@ -46,11 +46,16 @@ void Walnut::ImGuiLayer::Init()
 	ImGui_ImplOpenGL3_Init("#version 410");
 }
 
-void Walnut::ImGuiLayer::Run()
+void Walnut::ImGuiLayer::Begin()
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
+}
+
+
+void Walnut::ImGuiLayer::Run() //TODO: Check OnUIRender
+{
 
 	{
 		static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
@@ -90,41 +95,41 @@ void Walnut::ImGuiLayer::Run()
 		ImGuiIO& io = ImGui::GetIO();
 		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 		{
-			ImGuiID dockspace_id = ImGui::GetID("VulkanAppDockspace");	//TODO: Check this
+			ImGuiID dockspace_id = ImGui::GetID("GladAppDockspace");	//TODO: Check this
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 		}
-
-		/*if (m_MenubarCallback)
-		{
-			if (ImGui::BeginMenuBar())
-			{
-				m_MenubarCallback();
-				ImGui::EndMenuBar();
-			}
-		}*/
-
-		/*for (auto& layer : m_LayerStack)
-			layer->OnUIRender();*/
 
 		ImGui::End();
 	}
 
+}
+
+void Walnut::ImGuiLayer::End()
+{
+	ImGuiIO& io = ImGui::GetIO();
+	Application& app = Application::Get();
+	io.DisplaySize = ImVec2((float)app.GetWidth(),
+		(float)app.GetHeight());
+
+
 	// Rendering
 	ImGui::Render();
 	ImDrawData* main_draw_data = ImGui::GetDrawData();
-	const bool main_is_minimized = (main_draw_data->DisplaySize.x <= 0.0f || main_draw_data->DisplaySize.y <= 0.0f);
+	const bool main_is_minimized = (main_draw_data->DisplaySize.x <= 0.0f || main_draw_data->DisplaySize.y <= 0.0f); //TODO: ??
 
-
+	ImGui_ImplOpenGL3_RenderDrawData(main_draw_data);
 
 	// Update and Render additional Platform Windows
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
+		GLFWwindow* backup_current_context = glfwGetCurrentContext();
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
+		glfwMakeContextCurrent(backup_current_context);
 	}
 }
 
-void Walnut::ImGuiLayer::Terminate()
+void Walnut::ImGuiLayer::OnDetach()
 {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();

@@ -2,6 +2,8 @@
 
 #include "Layer.h"
 
+#include "imgui.h"
+
 #include "GLFW/glfw3.h"
 
 namespace Walnut {
@@ -14,6 +16,9 @@ namespace Walnut {
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
 		virtual void OnUIRender() override;
+
+		void Begin();
+		void End();
 
 		void Init();
 		void Run();

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Application.h"
+
 #ifdef WL_PLATFORM_WINDOWS
 
 extern Walnut::Application* Walnut::CreateApplication(int argc, char** argv);

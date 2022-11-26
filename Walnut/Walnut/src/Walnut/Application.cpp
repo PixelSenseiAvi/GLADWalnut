@@ -19,10 +19,14 @@ namespace Walnut {
 			std::cout << "Initiliased successfully" << std::endl;
 		else
 			std::cout << "Initilion Failed" << std::endl;
+
+		//Initialize IMGUI Layer
+		m_imguiLayer = new ImGuiLayer();
 	}
 
 	Application::~Application()
 	{
+		Terminate();
 	}
 
 	int Application::Init()
@@ -49,16 +53,17 @@ namespace Walnut {
 			return -1;
 		}
 
-		//TODO: IMGUILAYER
+		//TODO: init Imgui
+		m_imguiLayer->OnAttach();
 	}
 
 	void Application::Run()
 	{
-		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-		ImGuiIO& io = ImGui::GetIO();
 
 		while (!glfwWindowShouldClose(m_window))
 		{
+
+			m_imguiLayer->Begin();
 			// input
 			// -----
 			processInput(m_window);
@@ -73,14 +78,15 @@ namespace Walnut {
 			glfwSwapBuffers(m_window);
 			glfwPollEvents();
 
-
+			m_imguiLayer->Run();
 			
+			m_imguiLayer->End();
 		}
 	}
 
 	void Application::Terminate()
 	{
-
+		m_imguiLayer->OnDetach();
 		glfwDestroyWindow(m_window);
 		glfwTerminate();
 	}

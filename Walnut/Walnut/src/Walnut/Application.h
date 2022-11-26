@@ -5,8 +5,9 @@
 #include <string>
 #include <functional>
 
-#include "imgui.h"
-#include "ImguiUtils.h"
+//#include "imgui.h"
+//#include "ImguiUtils.h"
+#include "ImGuiLayer.h"
 
 #define GLFW_INCLUDE_NONE
 #include "glad/glad.h"
@@ -23,6 +24,10 @@ namespace Walnut {
 
 		inline static Application& Get() { return *s_Instance; }
 		inline GLFWwindow* GetWindow () { return m_window; }
+		inline uint32_t GetWidth() { return m_width; }
+		inline uint32_t GetHeight() { return m_height; }
+
+		void Run();
 
 	private:
 		const std::string m_name;
@@ -31,8 +36,9 @@ namespace Walnut {
 
 		static Application* s_Instance;
 
+		ImGuiLayer* m_imguiLayer;
+
 		int Init();
-		void Run();
 		void Terminate();
 
 		std::vector<std::shared_ptr<Layer>> m_LayerStack;
