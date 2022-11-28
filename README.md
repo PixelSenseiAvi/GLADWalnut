@@ -1,4 +1,4 @@
-# Walnut
+# GLAD Walnut
 
 GLADWalnut is a simple application framework built with Dear ImGui and designed to be used with GLAD - basically this means you can seemlessly blend real-time GLAD rendering with a great UI library to build desktop applications. The plan is to expand Walnut to include common utilities to make immediate-mode desktop apps and simple GLAD applications. This is inspired from @TheCherno Walnut which was written for Vulkan api.
 
