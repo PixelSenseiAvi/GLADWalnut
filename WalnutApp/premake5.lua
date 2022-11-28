@@ -1,5 +1,5 @@
-project "Walnut"
-   kind "StaticLib"
+project "WalnutApp"
+   kind "ConsoleApp"
    language "C++"
    cppdialect "C++17"
    targetdir "bin/%{cfg.buildcfg}"
@@ -9,26 +9,22 @@ project "Walnut"
 
    includedirs
    {
-      "src",
-
       "../vendor/imgui",
       "../vendor/glfw/include",
-      "../vendor/stb_image",
 	"../vendor/glad/include",
 
-     -- "%{IncludeDir.VulkanSDK}",
+      "../Walnut/src",
+
+--      "%{IncludeDir.VulkanSDK}",
       "%{IncludeDir.glm}",
    }
 
-   links
-   {
-       "ImGui",
-       "GLFW",
+    links
+    {
+        "Walnut"
+    }
 
-      -- "%{Library.Vulkan}",
-   }
-
-   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+   targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
    objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
 
    filter "system:windows"
@@ -47,6 +43,7 @@ project "Walnut"
       symbols "On"
 
    filter "configurations:Dist"
+      kind "WindowedApp"
       defines { "WL_DIST" }
       runtime "Release"
       optimize "On"

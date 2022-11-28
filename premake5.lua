@@ -1,10 +1,10 @@
 -- premake5.lua
-workspace "ParticleSystem"
+workspace "WalnutApp"
    architecture "x64"
    configurations { "Debug", "Release", "Dist" }
-   startproject "ParticleSystem"
+   startproject "WalnutApp"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-include "Walnut/WalnutExternal.lua"
 
-include "ParticleSystem"
+include "WalnutExternal.lua"
+include "WalnutApp"
