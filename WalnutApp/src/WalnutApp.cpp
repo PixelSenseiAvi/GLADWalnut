@@ -2,6 +2,7 @@
 #include "Walnut/EntryPoint.h"
 
 #include "Walnut/Image.h"
+#include "Renderer.h"
 
 #include "Walnut/Timer.h"
 
@@ -27,30 +28,27 @@ public:
 		m_ViewPortWidth = ImGui::GetContentRegionAvail().x;
 		m_ViewPortHeight = ImGui::GetContentRegionAvail().y;
 
-		if (m_Image)
-			ImGui::Image((void*)(intptr_t)m_Image->GetTextureID(), {(float)m_Image->GetWidth(), (float)m_Image->GetHeight()});
+		auto image = m_Renderer.GetFinalImage();
+		if (image)
+			ImGui::Image((void*)(intptr_t)image->GetTextureID(), {(float)image->GetWidth(), (float)image->GetHeight()},
+				ImVec2(0, 1), ImVec2(1,0));
 
 		ImGui::End();
 		ImGui::PopStyleVar();
+
+		Render();
 	}
 	void Render()
 	{
 		Timer timer;
-		if (!m_Image || m_ViewPortWidth != m_Image->GetWidth() || m_ViewPortHeight != m_Image->GetHeight())
-		{
-			delete[] m_ImageData;
-			m_ImageData = new uint32_t[m_ViewPortWidth * m_ViewPortHeight];
-			for (uint32_t i = 0; i < m_ViewPortWidth * m_ViewPortHeight; i++)
-			{
-				m_ImageData[i] = 0xffff00ff;
-			}
-			m_Image = std::make_shared<Image>(m_ViewPortWidth, m_ViewPortHeight, ImageFormat::RGBA, m_ImageData);
-		}
+
+		m_Renderer.OnResize(m_ViewPortWidth, m_ViewPortHeight);
+		m_Renderer.Render();
 
 		m_LastRenderTime = timer.ElapsedMillis();
 	}
 private:
-	std::shared_ptr<Image> m_Image;
+	Renderer m_Renderer;
 
 	uint32_t m_ViewPortWidth = 0, m_ViewPortHeight = 0;
 	uint32_t* m_ImageData;

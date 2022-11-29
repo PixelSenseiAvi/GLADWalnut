@@ -23,6 +23,7 @@ namespace Walnut {
 
 
 		void Resize(uint32_t width, uint32_t height);
+		void Image::SetData(const void* data);
 
 		inline uint32_t GetWidth() const { return m_Width; }
 		inline uint32_t GetHeight() const { return m_Height; }
@@ -39,7 +40,7 @@ namespace Walnut {
 		ImageFormat m_Format = ImageFormat::None;
 
 		std::string m_Filepath;
-		GLuint m_textureID;
+		GLuint m_textureID = 0;
 	};
 
 }
