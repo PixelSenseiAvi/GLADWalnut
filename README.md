@@ -21,4 +21,4 @@ Once you've cloned, run `scripts/Setup.bat` to generate Visual Studio 2022 solut
 - Walnut uses the [Roboto](https://fonts.google.com/specimen/Roboto) font ([Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0))
 
 ### Current known Bugs
-Viewport Resize Failure. - Needs to be fixed
+None -:)
