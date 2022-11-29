@@ -24,11 +24,11 @@ public:
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.f, 0.f));
 		ImGui::Begin("Viewport");
 
-		//m_ViewPortWidth = ImGui::GetContentRegionAvail().x;
-		//m_ViewPortHeight = ImGui::GetContentRegionAvail().y;
+		m_ViewPortWidth = ImGui::GetContentRegionAvail().x;
+		m_ViewPortHeight = ImGui::GetContentRegionAvail().y;
 
-		/*if (m_Image)
-			ImGui::Image(m_Image->GetDescriptorSet(), { (float)m_Image->GetWidth(), (float)m_Image->GetHeight() });*/
+		if (m_Image)
+			ImGui::Image((void*)(intptr_t)m_Image->GetTextureID(), {(float)m_Image->GetWidth(), (float)m_Image->GetHeight()});
 
 		ImGui::End();
 		ImGui::PopStyleVar();
@@ -36,20 +36,22 @@ public:
 	void Render()
 	{
 		Timer timer;
-		/*if (!m_Image || m_ViewPortWidth != m_Image->GetWidth() || m_ViewPortHeight != m_Image->GetHeight())
+		if (!m_Image || m_ViewPortWidth != m_Image->GetWidth() || m_ViewPortHeight != m_Image->GetHeight())
 		{
-			m_Image = std::make_shared<Image>(m_ViewPortWidth, m_ViewPortHeight, ImageFormat::RGBA);
 			delete[] m_ImageData;
 			m_ImageData = new uint32_t[m_ViewPortWidth * m_ViewPortHeight];
+			for (uint32_t i = 0; i < m_ViewPortWidth * m_ViewPortHeight; i++)
+			{
+				m_ImageData[i] = 0xffff00ff;
+			}
+			m_Image = std::make_shared<Image>(m_ViewPortWidth, m_ViewPortHeight, ImageFormat::RGBA, m_ImageData);
 		}
-		for (uint32_t i = 0; i < m_ViewPortWidth * m_ViewPortHeight; i++)
-		{
-			m_ImageData[i] = 0xffff00ff;
-		}*/
 
 		m_LastRenderTime = timer.ElapsedMillis();
 	}
 private:
+	std::shared_ptr<Image> m_Image;
+
 	uint32_t m_ViewPortWidth = 0, m_ViewPortHeight = 0;
 	uint32_t* m_ImageData;
 	float m_LastRenderTime;
