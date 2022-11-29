@@ -1,4 +1,4 @@
-# Walnut
+# GLAD Walnut
 
 GLADWalnut is a simple application framework built with Dear ImGui and designed to be used with GLAD - basically this means you can seemlessly blend real-time GLAD rendering with a great UI library to build desktop applications. The plan is to expand Walnut to include common utilities to make immediate-mode desktop apps and simple GLAD applications. This is inspired from @TheCherno Walnut which was written for Vulkan api.
 
@@ -20,5 +20,6 @@ Once you've cloned, run `scripts/Setup.bat` to generate Visual Studio 2022 solut
 ### Additional
 - Walnut uses the [Roboto](https://fonts.google.com/specimen/Roboto) font ([Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0))
 
-### Bugs
-Currently you have to manually add glad.c in your project. Will be resolved shortly.
+### Installation Instructions
+1. Clone repo: git clone https://github.com/chikvi/GLADWalnut
+2. Run scripts/Setup.bat to generate .sln file
