@@ -121,15 +121,15 @@ namespace Walnut {
 
 	void Image::Resize(uint32_t width, uint32_t height)
 	{
-		/*if (m_Image && m_Width == width && m_Height == height)
-			return;*/
+		if (m_Width == width && m_Height == height)
+			return;
 
 			// TODO: max size?
 
 		m_Width = width;
 		m_Height = height;
 
-		Release();
+		//Release();
 	}
 
 }
