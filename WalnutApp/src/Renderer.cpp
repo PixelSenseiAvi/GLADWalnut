@@ -25,7 +25,7 @@ void Renderer::Render()
 		for (uint32_t x = 0; x < m_FinalImage->GetWidth(); x++)
 		{
 			glm::vec2 coord = { (float)x / (float)m_FinalImage->GetWidth(), (float)y / (float)m_FinalImage->GetHeight() };
-
+			coord = coord * 2.0f - 1.0f;
 			m_ImageData[x + y*m_FinalImage->GetWidth()] = PerPixel(coord);
 
 		}
