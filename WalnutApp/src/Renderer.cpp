@@ -32,8 +32,11 @@ void Renderer::Render()
 	}
 
 	m_FinalImage->SetData((void*)m_ImageData);
+	m_FinalImage->UseTexture();
 }
 
+
+//Fragment Shader
 uint32_t Renderer::PerPixel(glm::vec2 coord)
 {
 	uint32_t pixel = Walnut::Random::UInt();

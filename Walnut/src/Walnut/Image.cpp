@@ -80,10 +80,12 @@ namespace Walnut {
 		: m_Width(width), m_Height(height), m_Format(format)
 	{
 		glGenTextures(1, &m_textureID);
-		if(data)
-			SetData((uint8_t *)data);
+		if (data)
+		{
+			SetData((uint8_t*)data);
 
-		UseTexture();
+			UseTexture();
+		}
 	}
 
 	Image::~Image()

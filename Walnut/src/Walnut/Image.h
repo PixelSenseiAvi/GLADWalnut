@@ -21,7 +21,7 @@ namespace Walnut {
 		Image(uint32_t width, uint32_t height, ImageFormat format, const void* data = nullptr);
 		~Image();
 
-
+		void UseTexture();
 		void Resize(uint32_t width, uint32_t height);
 		void Image::SetData(const void* data);
 
@@ -31,7 +31,6 @@ namespace Walnut {
 		
 	private:
 
-		void UseTexture();
 		void Release();
 	private:
 		uint32_t m_Width = 0, m_Height = 0;
