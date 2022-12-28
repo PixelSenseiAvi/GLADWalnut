@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef WL_PLATFORM_WINDOWS
+//#ifdef WL_PLATFORM_WINDOWS
 
 extern Walnut::Application* Walnut::CreateApplication(int argc, char** argv);
 bool g_ApplicationRunning = true;
@@ -39,4 +39,4 @@ int main(int argc, char** argv)
 
 #endif // WL_DIST
 
-#endif // WL_PLATFORM_WINDOWS
+//#endif // WL_PLATFORM_WINDOWS
