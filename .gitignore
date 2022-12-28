@@ -11,3 +11,5 @@ bin-int/
 
 # Exclude
 !vendor/bin
+
+compile-commands.json
