@@ -11,10 +11,11 @@ project "Walnut"
    {
       "src",
 
-      "../vendor/imgui",
-      "../vendor/glfw/include",
-      "../vendor/stb_image",
-	"../vendor/glad/include",
+      "vendor/imgui",
+      "vendor/glfw/include",
+      "vendor/stb-image",
+	"vendor/glad/include",
+	"vendor/glm",
 
      -- "%{IncludeDir.VulkanSDK}",
       "%{IncludeDir.glm}",
